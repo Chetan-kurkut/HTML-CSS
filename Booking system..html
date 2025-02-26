@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Facility Booking System</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background: linear-gradient(90deg, #0057b8, #002147);
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .hero {
+            background: url('college-campus.jpg') no-repeat center center/cover;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-shadow: 2px 2px 4px #000;
+            text-align: center;
+        }
+        .hero button {
+            padding: 12px 24px;
+            border: none;
+            background: #ff9800;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 10px;
+            border-radius: 8px;
+        }
+        .facility-grid {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            padding: 20px;
+            flex-wrap: wrap;
+        }
+        .facility {
+            background: linear-gradient(45deg, #0057b8, #002147);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            min-width: 200px;
+        }
+        form {
+            background: white;
+            padding: 20px;
+            max-width: 400px;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        form label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        form input, form select, form button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        form button {
+            background: #0057b8;
+            color: white;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+        .status-box {
+            background: white;
+            padding: 20px;
+            text-align: center;
+            max-width: 400px;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            background: linear-gradient(90deg, #0057b8, #002147);
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>College Campus Facility Booking</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#facilities">Facilities</a></li>
+                <li><a href="#booking">Book Now</a></li>
+                <li><a href="#status">Availability</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section id="home" class="hero">
+        <h2>Welcome to Our Campus Facility Booking System</h2>
+        <p>Reserve auditoriums, sports courts, and other campus spaces online.</p>
+        <button>Get Started</button>
+    </section>
+    
+    <section id="facilities">
+        <h2>Available Facilities</h2>
+        <div class="facility-grid">
+            <div class="facility">🎭 Auditorium</div>
+            <div class="facility">🏀 Basketball Court</div>
+            <div class="facility">🎾 Tennis Court</div>
+            <div class="facility">🏋️ Gymnasium</div>
+        </div>
+    </section>
+    
+    <section id="booking">
+        <h2>Book a Facility</h2>
+        <form>
+            <label for="name">Name:</label>
+            <input type="text" id="name" required>
+            
+            <label for="facility">Select Facility:</label>
+            <select id="facility">
+                <option value="auditorium">Auditorium</option>
+                <option value="basketball">Basketball Court</option>
+                <option value="tennis">Tennis Court</option>
+                <option value="gym">Gymnasium</option>
+            </select>
+            
+            <label for="date">Date:</label>
+            <input type="date" id="date" required>
+            
+            <label for="time">Time:</label>
+            <input type="time" id="time" required>
+            
+            <button type="submit">Submit Request</button>
+        </form>
+    </section>
+    
+    <section id="status">
+        <h2>Availability Status</h2>
+        <p>Check the status of facilities before booking.</p>
+        <div class="status-box">
+            <p>🎭 Auditorium - Available</p>
+            <p>🏀 Basketball Court - Booked</p>
+            <p>🎾 Tennis Court - Available</p>
+            <p>🏋️ Gymnasium - Booked</p>
+        </div>
+    </section>
+    
+    <footer>
+        <p>&copy; 2025 College Campus Facility Booking System</p>
+    </footer>
+</body>
+</html>

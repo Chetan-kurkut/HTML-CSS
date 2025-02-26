@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automated Health & Leave Notifications</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #e3f2fd;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin: auto;
+        }
+        input, button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        button {
+            background-color: #0288d1;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background-color: #0277bd;
+        }
+        .illustration {
+            width: 100%;
+            max-width: 400px;
+            margin: 20px auto;
+            display: block;
+            border-radius: 10px;
+        }
+        h2 {
+            color: #01579b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>📢 Automated Health & Leave Notifications</h2>
+        <img src="https://via.placeholder.com/400x200?text=College+Health+Notification" alt="College Health Illustration" class="illustration">
+        
+        <h3>🏥 Health Notification</h3>
+        <input type="text" id="studentName" placeholder="Enter Student Name">
+        <button onclick="sendHealthNotification()">✅ Report as Sick</button>
+        <p id="healthStatus"></p>
+        
+        <h3>🚶 Leave Notification</h3>
+        <input type="text" id="leaveStudent" placeholder="Enter Student Name">
+        <input type="text" id="parentMobile" placeholder="Enter Parent Mobile Number">
+        <button onclick="sendLeaveNotification()">📩 Notify Parent</button>
+        <p id="leaveStatus"></p>
+        <img src="https://via.placeholder.com/400x200?text=Campus+Leave+Notification" alt="Campus Leave Illustration" class="illustration">
+    </div>
+
+    <script>
+        function sendHealthNotification() {
+            let studentName = document.getElementById("studentName").value;
+            if (studentName.trim() === "") {
+                document.getElementById("healthStatus").innerText = "⚠️ Please enter a student name.";
+                return;
+            }
+            document.getElementById("healthStatus").innerText = `✅ Health notification sent for ${studentName}.`;
+            document.getElementById("studentName").value = "";
+        }
+
+        function sendLeaveNotification() {
+            let studentName = document.getElementById("leaveStudent").value;
+            let parentMobile = document.getElementById("parentMobile").value;
+            if (studentName.trim() === "" || parentMobile.trim() === "") {
+                document.getElementById("leaveStatus").innerText = "⚠️ Please enter student name and parent mobile number.";
+                return;
+            }
+            document.getElementById("leaveStatus").innerText = `📩 Leave notification sent to ${parentMobile} for ${studentName}.`;
+            document.getElementById("leaveStudent").value = "";
+            document.getElementById("parentMobile").value = "";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaint Box</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: url('https://source.unsplash.com/1600x900/?college,students') no-repeat center center/cover;
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(12px);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+        }
+        .drop-zone {
+            border: 2px dashed #ff5733;
+            border-radius: 6px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .drop-zone:hover {
+            background-color: rgba(255, 87, 51, 0.1);
+        }
+        .error {
+            color: red;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+
+    <div class="glass-effect w-full p-6 bg-white/20">
+        <h2 class="text-3xl font-bold text-center text-red-400 mb-4">📢 Complaint Box</h2>
+        <form id="complaintForm">
+            <div class="mb-4">
+                <label class="block text-white">👨‍🎓 Student Name</label>
+                <input type="text" id="name" class="w-full p-3 border rounded bg-white text-black" placeholder="Enter your name">
+                <p class="error" id="error-name"></p>
+            </div>
+            <div class="mb-4">
+                <label class="block text-white">🏫 Department</label>
+                <select id="department" class="w-full p-3 border rounded bg-white text-black">
+                    <option value="">Select Department</option>
+                    <option value="Computer Science">Computer Science</option>
+                    <option value="Information Technology">Information Technology</option>
+                    <option value="Electronics and Telecommunication">Electronics and Telecommunication</option>
+                    <option value="Civil">Civil</option>
+                    <option value="Mechanical">Mechanical</option>
+                </select>
+                <p class="error" id="error-department"></p>
+            </div>
+            <div class="mb-4">
+                <label class="block text-white">📜 Complaint Type</label>
+                <select id="complaintType" class="w-full p-3 border rounded bg-white text-black">
+                    <option value="">Select Type</option>
+                    <option value="Infrastructure">Infrastructure Issues</option>
+                    <option value="Faculty">Faculty Concerns</option>
+                    <option value="Administration">Administrative Issues</option>
+                    <option value="Other">Other</option>
+                </select>
+                <p class="error" id="error-complaintType"></p>
+            </div>
+            <div class="mb-4">
+                <label class="block text-white">✍️ Complaint Details</label>
+                <textarea id="complaintDetails" class="w-full p-3 border rounded bg-white text-black" rows="3" placeholder="Enter complaint details..."></textarea>
+                <p class="error" id="error-complaintDetails"></p>
+            </div>
+            <div class="mb-4">
+                <label class="block text-white">📎 Upload Evidence (if any)</label>
+                <div class="drop-zone text-white" id="dropZone">
+                    <p>📁 Drag & Drop file here or <span class="text-blue-300 underline">Browse</span></p>
+                    <input type="file" id="fileInput" class="hidden">
+                </div>
+                <p class="error" id="error-file"></p>
+            </div>
+            <button type="submit" class="w-full bg-red-500 hover:bg-red-600 text-white font-bold p-3 rounded transition duration-300">🚀 Submit Complaint</button>
+        </form>
+    </div>
+
+    <script>
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+
+        dropZone.addEventListener('click', () => fileInput.click());
+
+        dropZone.addEventListener('dragover', (event) => {
+            event.preventDefault();
+            dropZone.style.backgroundColor = "rgba(255, 87, 51, 0.2)";
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.style.backgroundColor = "";
+        });
+
+        dropZone.addEventListener('drop', (event) => {
+            event.preventDefault();
+            dropZone.style.backgroundColor = "";
+            fileInput.files = event.dataTransfer.files;
+            dropZone.innerHTML = `<p class="text-green-400">✅ File uploaded: ${fileInput.files[0].name}</p>`;
+        });
+
+        document.getElementById('complaintForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            let valid = true;
+
+            function checkField(id, errorId, message) {
+                const field = document.getElementById(id);
+                const errorField = document.getElementById(errorId);
+                if (field.value.trim() === '') {
+                    errorField.textContent = message;
+                    valid = false;
+                } else {
+                    errorField.textContent = '';
+                }
+            }
+
+            checkField('name', 'error-name', 'Student name is required');
+            checkField('complaintDetails', 'error-complaintDetails', 'Complaint details are required');
+
+            const department = document.getElementById('department');
+            const errorDepartment = document.getElementById('error-department');
+            if (department.value === '') {
+                errorDepartment.textContent = 'Please select a department';
+                valid = false;
+            } else {
+                errorDepartment.textContent = '';
+            }
+
+            const complaintType = document.getElementById('complaintType');
+            const errorComplaintType = document.getElementById('error-complaintType');
+            if (complaintType.value === '') {
+                errorComplaintType.textContent = 'Please select complaint type';
+                valid = false;
+            } else {
+                errorComplaintType.textContent = '';
+            }
+
+            if (valid) {
+                alert('✅ Complaint submitted successfully!');
+                this.submit();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anonymous Complaint System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: auto;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .complaints-list {
+            text-align: left;
+            margin-top: 20px;
+            background: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Anonymous Complaint System</h2>
+        <p>Submit your complaint below. Your identity will remain anonymous unless approved for disclosure.</p>
+        <textarea id="complaint" placeholder="Enter your complaint here..."></textarea>
+        <button onclick="submitComplaint()">Submit Complaint</button>
+        <p id="status"></p>
+        
+        <div class="complaints-list">
+            <h3>Previous Complaints</h3>
+            <ul id="complaint-list"></ul>
+        </div>
+    </div>
+
+    <script>
+        let complaints = [];
+
+        function submitComplaint() {
+            let complaintText = document.getElementById("complaint").value;
+            if (complaintText.trim() === "") {
+                document.getElementById("status").innerText = "Please enter a complaint.";
+                return;
+            }
+            complaints.push(complaintText);
+            document.getElementById("status").innerText = "Complaint submitted anonymously.";
+            document.getElementById("complaint").value = "";
+            updateComplaintList();
+        }
+
+        function updateComplaintList() {
+            let complaintList = document.getElementById("complaint-list");
+            complaintList.innerHTML = "";
+            complaints.forEach(complaint => {
+                let li = document.createElement("li");
+                li.innerText = complaint;
+                complaintList.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>
