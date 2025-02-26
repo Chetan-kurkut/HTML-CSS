@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Application Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: url('https://source.unsplash.com/1600x900/?university,college') no-repeat center center/cover;
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(12px);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+            max-width: 450px;
+        }
+        .drop-zone {
+            border: 2px dashed #facc15;
+            border-radius: 6px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .drop-zone:hover {
+            background-color: rgba(250, 204, 21, 0.1);
+        }
+        .error {
+            color: red;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+
+    <div class="glass-effect w-full p-6 bg-white/20">
+        <h2 class="text-3xl font-bold text-center text-yellow-400 mb-4">🎓 Student Application</h2>
+        <form id="applicationForm">
+            <div class="mb-4">
+                <label class="block text-white">👨‍🎓 Student Name</label>
+                <input type="text" id="name" class="w-full p-3 border rounded bg-white text-black" placeholder="Enter your name">
+                <p class="error" id="error-name"></p>
+            </div>
+            <div class="mb-4">
+                <label class="block text-white">🏫 Class</label>
+                <input type="text" id="class" class="w-full p-3 border rounded bg-white text-black" placeholder="Enter your class">
+                <p class="error" id="error-class"></p>
+            </div>
+            <div class="mb-4">
+                <label class="block text-white">📚 Division</label>
+                <input type="text" id="division" class="w-full p-3 border rounded bg-white text-black" placeholder="Enter your division">
+                <p class="error" id="error-division"></p>
+            </div>
+            <div class="mb-4">
+                <label class="block text-white">🏛️ Department</label>
+                <select id="department" class="w-full p-3 border rounded bg-white text-black">
+                    <option value="">Select Department</option>
+                    <option value="Computer Science">Computer Science</option>
+                    <option value="Information Technology">Information Technology</option>
+                    <option value="Electronics and Telecommunication">Electronics and Telecommunication</option>
+                    <option value="Civil">Civil</option>
+                    <option value="Mechanical">Mechanical</option>
+                </select>
+                <p class="error" id="error-department"></p>
+            </div>
+            <div class="mb-4">
+                <label class="block text-white">🆔 PNR Number</label>
+                <input type="text" id="pnr" class="w-full p-3 border rounded bg-white text-black" placeholder="Enter your PNR number">
+                <p class="error" id="error-pnr"></p>
+            </div>
+            <div class="mb-4">
+                <label class="block text-white">📝 Application Details</label>
+                <textarea id="applicationDetails" class="w-full p-3 border rounded bg-white text-black" rows="3" placeholder="Enter application details..."></textarea>
+                <p class="error" id="error-applicationDetails"></p>
+            </div>
+            <div class="mb-4">
+                <label class="block text-white">📎 Upload Document</label>
+                <div class="drop-zone text-white" id="dropZone">
+                    <p>📁 Drag & Drop file here or <span class="text-blue-300 underline">Browse</span></p>
+                    <input type="file" id="fileInput" class="hidden">
+                </div>
+                <p class="error" id="error-file"></p>
+            </div>
+            <button type="submit" class="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold p-3 rounded transition duration-300">🚀 Submit Application</button>
+        </form>
+    </div>
+
+    <script>
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+
+        dropZone.addEventListener('click', () => fileInput.click());
+
+        dropZone.addEventListener('dragover', (event) => {
+            event.preventDefault();
+            dropZone.style.backgroundColor = "rgba(250, 204, 21, 0.2)";
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.style.backgroundColor = "";
+        });
+
+        dropZone.addEventListener('drop', (event) => {
+            event.preventDefault();
+            dropZone.style.backgroundColor = "";
+            fileInput.files = event.dataTransfer.files;
+            dropZone.innerHTML = `<p class="text-green-400">✅ File uploaded: ${fileInput.files[0].name}</p>`;
+        });
+
+        document.getElementById('applicationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            let valid = true;
+
+            function checkField(id, errorId, message) {
+                const field = document.getElementById(id);
+                const errorField = document.getElementById(errorId);
+                if (field.value.trim() === '') {
+                    errorField.textContent = message;
+                    valid = false;
+                } else {
+                    errorField.textContent = '';
+                }
+            }
+
+            checkField('name', 'error-name', 'Student name is required');
+            checkField('class', 'error-class', 'Class is required');
+            checkField('division', 'error-division', 'Division is required');
+            checkField('pnr', 'error-pnr', 'PNR number is required');
+            checkField('applicationDetails', 'error-applicationDetails', 'Application details are required');
+
+            const department = document.getElementById('department');
+            const errorDepartment = document.getElementById('error-department');
+            if (department.value === '') {
+                errorDepartment.textContent = 'Please select a department';
+                valid = false;
+            } else {
+                errorDepartment.textContent = '';
+            }
+
+            if (fileInput.files.length === 0) {
+                document.getElementById('error-file').textContent = 'File upload is required';
+                valid = false;
+            } else {
+                document.getElementById('error-file').textContent = '';
+            }
+
+            if (valid) {
+                alert('🎉 Application submitted successfully!');
+                this.submit();
+            }
+        });
+    </script>
+</body>
+</html>
